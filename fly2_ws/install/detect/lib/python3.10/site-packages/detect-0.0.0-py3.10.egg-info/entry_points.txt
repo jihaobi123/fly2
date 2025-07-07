@@ -1,7 +1,0 @@
-[console_scripts]
-detect = detect.detect_ros:main
-detect2 = detect.successdetect:main
-filter = detect.bucket_filter:main
-test = detect.state_machine:main
-without = detect.without_depth:main
-

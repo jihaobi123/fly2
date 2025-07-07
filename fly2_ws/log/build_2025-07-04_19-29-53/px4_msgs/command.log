@@ -1,1 +1,0 @@
-Invoking command in '/home/fly_ws/build/px4_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/fly_ws/install/detect:/home/fly_ws/install/control:/opt/ros/humble /usr/bin/cmake /home/fly_ws/src/px4_msgs -DCMAKE_INSTALL_PREFIX=/home/fly_ws/install/px4_msgs

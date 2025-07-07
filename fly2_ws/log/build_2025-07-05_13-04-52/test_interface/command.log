@@ -1,2 +1,0 @@
-Invoking command in '/home/fly_ws/build/test_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/fly_ws/build/test_interface -- -j6 -l6
-Invoked command in '/home/fly_ws/build/test_interface' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/fly_ws/build/test_interface -- -j6 -l6

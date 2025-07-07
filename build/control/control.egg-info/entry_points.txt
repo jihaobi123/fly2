@@ -1,0 +1,3 @@
+[console_scripts]
+water_drop_mission = control.water_drop_mission_enhanced:main
+

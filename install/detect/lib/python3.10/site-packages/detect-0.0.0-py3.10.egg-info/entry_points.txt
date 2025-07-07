@@ -1,0 +1,5 @@
+[console_scripts]
+barrel_manager = detect.barrel_manager_node:main
+planb = detect.planb:main
+switchd = detect.switchd:main
+

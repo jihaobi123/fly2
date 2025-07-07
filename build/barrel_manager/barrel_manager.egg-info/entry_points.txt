@@ -1,0 +1,3 @@
+[console_scripts]
+barrel_manager = barrel_manager.barrel_manager_node:main
+

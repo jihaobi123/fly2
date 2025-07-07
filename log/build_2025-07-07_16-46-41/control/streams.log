@@ -1,0 +1,25 @@
+[2.779s] Invoking command in '/home/fly2_ws/src/fly1': CMAKE_PREFIX_PATH=/home/fly2_ws/install/px4_msgs:/home/fly2_ws/fly2_ws/install/test_interface:/home/fly2_ws/fly2_ws/install/px4_msgs LD_LIBRARY_PATH=/home/fly2_ws/install/px4_msgs/lib:/home/fly2_ws/fly2_ws/install/test_interface/lib:/home/fly2_ws/fly2_ws/install/px4_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/cuda/lib64 PYTHONPATH=/home/fly2_ws/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly2_ws/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/control build --build-base /home/fly2_ws/build/control/build install --record /home/fly2_ws/build/control/install.log --single-version-externally-managed install_data
+[3.324s] running egg_info
+[3.325s] writing ../../build/control/control.egg-info/PKG-INFO
+[3.325s] writing dependency_links to ../../build/control/control.egg-info/dependency_links.txt
+[3.326s] writing entry points to ../../build/control/control.egg-info/entry_points.txt
+[3.326s] writing requirements to ../../build/control/control.egg-info/requires.txt
+[3.326s] writing top-level names to ../../build/control/control.egg-info/top_level.txt
+[3.330s] reading manifest file '../../build/control/control.egg-info/SOURCES.txt'
+[3.332s] writing manifest file '../../build/control/control.egg-info/SOURCES.txt'
+[3.332s] running build
+[3.332s] running build_py
+[3.333s] warning: build_py: byte-compiling is disabled, skipping.
+[3.333s] 
+[3.336s] running install
+[3.336s] warning: install_lib: byte-compiling is disabled, skipping.
+[3.336s] 
+[3.336s] running install_lib
+[3.337s] running install_data
+[3.337s] running install_egg_info
+[3.340s] removing '/home/fly2_ws/install/control/lib/python3.10/site-packages/control-0.0.0-py3.10.egg-info' (and everything under it)
+[3.341s] Copying ../../build/control/control.egg-info to /home/fly2_ws/install/control/lib/python3.10/site-packages/control-0.0.0-py3.10.egg-info
+[3.343s] running install_scripts
+[3.395s] Installing water_drop_mission script to /home/fly2_ws/install/control/lib/control
+[3.396s] writing list of installed files to '/home/fly2_ws/build/control/install.log'
+[3.509s] Invoked command in '/home/fly2_ws/src/fly1' returned '0': CMAKE_PREFIX_PATH=/home/fly2_ws/install/px4_msgs:/home/fly2_ws/fly2_ws/install/test_interface:/home/fly2_ws/fly2_ws/install/px4_msgs LD_LIBRARY_PATH=/home/fly2_ws/install/px4_msgs/lib:/home/fly2_ws/fly2_ws/install/test_interface/lib:/home/fly2_ws/fly2_ws/install/px4_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib:/usr/local/cuda/lib64 PYTHONPATH=/home/fly2_ws/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly2_ws/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/control build --build-base /home/fly2_ws/build/control/build install --record /home/fly2_ws/build/control/install.log --single-version-externally-managed install_data

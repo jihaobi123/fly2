@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/barrel_manager/barrel_manager.egg-info/PKG-INFO
+../../build/barrel_manager/barrel_manager.egg-info/SOURCES.txt
+../../build/barrel_manager/barrel_manager.egg-info/dependency_links.txt
+../../build/barrel_manager/barrel_manager.egg-info/entry_points.txt
+../../build/barrel_manager/barrel_manager.egg-info/requires.txt
+../../build/barrel_manager/barrel_manager.egg-info/top_level.txt
+../../build/barrel_manager/barrel_manager.egg-info/zip-safe
+barrel_manager/__init__.py
+barrel_manager/barrel_manager_node.py
+resource/barrel_manager
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
