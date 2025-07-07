@@ -1,0 +1,41 @@
+[1.534s] Invoking command in '/home/fly_ws/build/detect': PYTHONPATH=/home/fly_ws/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly_ws/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/fly_ws/build/detect/build
+[2.080s] running develop
+[2.361s] Removing /home/fly_ws/install/detect/lib/python3.10/site-packages/detect.egg-link (link to .)
+[2.456s] Invoked command in '/home/fly_ws/build/detect' returned '0': PYTHONPATH=/home/fly_ws/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly_ws/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/fly_ws/build/detect/build
+[2.457s] Invoking command in '/home/fly_ws/src/detect': PYTHONPATH=/home/fly_ws/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly_ws/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/detect build --build-base /home/fly_ws/build/detect/build install --record /home/fly_ws/build/detect/install.log --single-version-externally-managed install_data --force
+[2.966s] running egg_info
+[2.967s] writing ../../build/detect/detect.egg-info/PKG-INFO
+[2.968s] writing dependency_links to ../../build/detect/detect.egg-info/dependency_links.txt
+[2.968s] writing entry points to ../../build/detect/detect.egg-info/entry_points.txt
+[2.968s] writing requirements to ../../build/detect/detect.egg-info/requires.txt
+[2.969s] writing top-level names to ../../build/detect/detect.egg-info/top_level.txt
+[2.976s] reading manifest file '../../build/detect/detect.egg-info/SOURCES.txt'
+[2.978s] writing manifest file '../../build/detect/detect.egg-info/SOURCES.txt'
+[2.978s] running build
+[2.978s] running build_py
+[2.980s] warning: build_py: byte-compiling is disabled, skipping.
+[2.980s] 
+[2.980s] running install
+[2.981s] running install_lib
+[2.983s] creating /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.983s] copying /home/fly_ws/build/detect/build/lib/detect/successdetect.py -> /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.984s] copying /home/fly_ws/build/detect/build/lib/detect/bucket_filter.py -> /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.984s] copying /home/fly_ws/build/detect/build/lib/detect/without_depth.py -> /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.985s] copying /home/fly_ws/build/detect/build/lib/detect/__init__.py -> /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.985s] copying /home/fly_ws/build/detect/build/lib/detect/detect_ros.py -> /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.985s] copying /home/fly_ws/build/detect/build/lib/detect/state_machine.py -> /home/fly_ws/install/detect/lib/python3.10/site-packages/detect
+[2.986s] warning: install_lib: byte-compiling is disabled, skipping.
+[2.986s] 
+[2.986s] running install_data
+[2.986s] copying resource/detect -> /home/fly_ws/install/detect/share/ament_index/resource_index/packages
+[2.987s] copying package.xml -> /home/fly_ws/install/detect/share/detect
+[2.987s] running install_egg_info
+[2.993s] Copying ../../build/detect/detect.egg-info to /home/fly_ws/install/detect/lib/python3.10/site-packages/detect-0.0.0-py3.10.egg-info
+[2.996s] running install_scripts
+[3.043s] Installing detect script to /home/fly_ws/install/detect/lib/detect
+[3.043s] Installing detect2 script to /home/fly_ws/install/detect/lib/detect
+[3.043s] Installing filter script to /home/fly_ws/install/detect/lib/detect
+[3.044s] Installing test script to /home/fly_ws/install/detect/lib/detect
+[3.044s] Installing without script to /home/fly_ws/install/detect/lib/detect
+[3.044s] writing list of installed files to '/home/fly_ws/build/detect/install.log'
+[3.133s] Invoked command in '/home/fly_ws/src/detect' returned '0': PYTHONPATH=/home/fly_ws/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly_ws/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/detect build --build-base /home/fly_ws/build/detect/build install --record /home/fly_ws/build/detect/install.log --single-version-externally-managed install_data --force

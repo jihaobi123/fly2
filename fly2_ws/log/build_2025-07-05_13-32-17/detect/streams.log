@@ -1,0 +1,23 @@
+[1.500s] Invoking command in '/home/fly_ws/build/detect': PYTHONPATH=/home/fly_ws/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly_ws/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/fly_ws/build/detect/build --no-deps symlink_data --force
+[2.057s] running develop
+[2.337s] running egg_info
+[2.337s] writing detect.egg-info/PKG-INFO
+[2.340s] writing dependency_links to detect.egg-info/dependency_links.txt
+[2.341s] writing entry points to detect.egg-info/entry_points.txt
+[2.342s] writing requirements to detect.egg-info/requires.txt
+[2.342s] writing top-level names to detect.egg-info/top_level.txt
+[2.349s] reading manifest file 'detect.egg-info/SOURCES.txt'
+[2.351s] writing manifest file 'detect.egg-info/SOURCES.txt'
+[2.355s] running build_ext
+[2.355s] Creating /home/fly_ws/install/detect/lib/python3.10/site-packages/detect.egg-link (link to .)
+[2.357s] Installing detect script to /home/fly_ws/install/detect/lib/detect
+[2.357s] Installing detect2 script to /home/fly_ws/install/detect/lib/detect
+[2.358s] Installing filter script to /home/fly_ws/install/detect/lib/detect
+[2.358s] Installing test script to /home/fly_ws/install/detect/lib/detect
+[2.358s] Installing without script to /home/fly_ws/install/detect/lib/detect
+[2.359s] 
+[2.359s] Installed /home/fly_ws/build/detect
+[2.359s] running symlink_data
+[2.359s] symbolically linking /home/fly_ws/build/detect/resource/detect -> /home/fly_ws/install/detect/share/ament_index/resource_index/packages
+[2.360s] symbolically linking /home/fly_ws/build/detect/package.xml -> /home/fly_ws/install/detect/share/detect
+[2.462s] Invoked command in '/home/fly_ws/build/detect' returned '0': PYTHONPATH=/home/fly_ws/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fly_ws/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/fly_ws/build/detect/build --no-deps symlink_data --force

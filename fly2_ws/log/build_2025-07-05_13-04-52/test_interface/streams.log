@@ -1,0 +1,11 @@
+[0.027s] Invoking command in '/home/fly_ws/build/test_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/fly_ws/build/test_interface -- -j6 -l6
+[0.233s] [  3%] Built target test_interface__cpp
+[0.241s] failed to create symbolic link '/home/fly_ws/build/test_interface/ament_cmake_python/test_interface/test_interface' because existing path cannot be removed: Is a directory
+[0.243s] gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_test_interface.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_test_interface] Error 1
+[0.245s] gmake[1]: *** [CMakeFiles/Makefile2:421: CMakeFiles/ament_cmake_python_symlink_test_interface.dir/all] Error 2
+[0.245s] gmake[1]: *** Waiting for unfinished jobs....
+[0.262s] [ 12%] Built target test_interface__rosidl_generator_c
+[0.283s] [35m[1mConsolidate compiler generated dependencies of target test_interface__rosidl_typesupport_cpp[0m
+[0.337s] [ 22%] Built target test_interface__rosidl_typesupport_cpp
+[0.342s] gmake: *** [Makefile:146: all] Error 2
+[0.348s] Invoked command in '/home/fly_ws/build/test_interface' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/fly_ws/build/test_interface -- -j6 -l6

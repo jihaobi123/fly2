@@ -1,0 +1,33 @@
+[0.033s] Invoking command in '/home/fly_ws/build/test_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/fly_ws/install/detect:/home/fly_ws/install/control:/opt/ros/humble /usr/bin/cmake /home/fly_ws/src/test_interface -DCMAKE_INSTALL_PREFIX=/home/fly_ws/install/test_interface
+[0.110s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.440s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.533s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.539s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.555s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.579s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.609s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.693s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[1.569s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[2.699s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.161s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.234s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[3.310s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[3.310s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[3.310s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[3.414s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.462s] -- Added test 'lint_cmake' to check CMake code style
+[3.470s] -- Added test 'xmllint' to check XML markup files
+[3.478s] -- Configuring done
+[3.586s] -- Generating done
+[3.613s] -- Build files have been written to: /home/fly_ws/build/test_interface
+[3.636s] Invoked command in '/home/fly_ws/build/test_interface' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/fly_ws/install/detect:/home/fly_ws/install/control:/opt/ros/humble /usr/bin/cmake /home/fly_ws/src/test_interface -DCMAKE_INSTALL_PREFIX=/home/fly_ws/install/test_interface
+[3.646s] Invoking command in '/home/fly_ws/build/test_interface': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/fly_ws/install/detect:/home/fly_ws/install/control:/opt/ros/humble /usr/bin/cmake --build /home/fly_ws/build/test_interface -- -j6 -l6
+[3.742s] [35m[1mConsolidate compiler generated dependencies of target test_interface__rosidl_generator_c[0m
+[3.765s] failed to create symbolic link '/home/fly_ws/build/test_interface/ament_cmake_python/test_interface/test_interface' because existing path cannot be removed: Is a directory
+[3.768s] gmake[2]: *** [CMakeFiles/ament_cmake_python_symlink_test_interface.dir/build.make:70: CMakeFiles/ament_cmake_python_symlink_test_interface] Error 1
+[3.768s] [  3%] Built target test_interface__cpp
+[3.768s] gmake[1]: *** [CMakeFiles/Makefile2:421: CMakeFiles/ament_cmake_python_symlink_test_interface.dir/all] Error 2
+[3.769s] gmake[1]: *** Waiting for unfinished jobs....
+[3.776s] [ 12%] Built target test_interface__rosidl_generator_c
+[3.778s] gmake: *** [Makefile:146: all] Error 2
+[3.783s] Invoked command in '/home/fly_ws/build/test_interface' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/fly_ws/install/detect:/home/fly_ws/install/control:/opt/ros/humble /usr/bin/cmake --build /home/fly_ws/build/test_interface -- -j6 -l6

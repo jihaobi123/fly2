@@ -1,0 +1,27 @@
+running egg_info
+writing ../../build/detect/detect.egg-info/PKG-INFO
+writing dependency_links to ../../build/detect/detect.egg-info/dependency_links.txt
+writing entry points to ../../build/detect/detect.egg-info/entry_points.txt
+writing requirements to ../../build/detect/detect.egg-info/requires.txt
+writing top-level names to ../../build/detect/detect.egg-info/top_level.txt
+reading manifest file '../../build/detect/detect.egg-info/SOURCES.txt'
+writing manifest file '../../build/detect/detect.egg-info/SOURCES.txt'
+running build
+running build_py
+warning: build_py: byte-compiling is disabled, skipping.
+
+running install
+running install_lib
+warning: install_lib: byte-compiling is disabled, skipping.
+
+running install_data
+running install_egg_info
+removing '/home/fly_ws/install/detect/lib/python3.10/site-packages/detect-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/detect/detect.egg-info to /home/fly_ws/install/detect/lib/python3.10/site-packages/detect-0.0.0-py3.10.egg-info
+running install_scripts
+Installing detect script to /home/fly_ws/install/detect/lib/detect
+Installing detect2 script to /home/fly_ws/install/detect/lib/detect
+Installing filter script to /home/fly_ws/install/detect/lib/detect
+Installing test script to /home/fly_ws/install/detect/lib/detect
+Installing without script to /home/fly_ws/install/detect/lib/detect
+writing list of installed files to '/home/fly_ws/build/detect/install.log'

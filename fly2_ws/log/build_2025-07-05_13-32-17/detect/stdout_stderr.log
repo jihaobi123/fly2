@@ -1,0 +1,21 @@
+running develop
+running egg_info
+writing detect.egg-info/PKG-INFO
+writing dependency_links to detect.egg-info/dependency_links.txt
+writing entry points to detect.egg-info/entry_points.txt
+writing requirements to detect.egg-info/requires.txt
+writing top-level names to detect.egg-info/top_level.txt
+reading manifest file 'detect.egg-info/SOURCES.txt'
+writing manifest file 'detect.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/fly_ws/install/detect/lib/python3.10/site-packages/detect.egg-link (link to .)
+Installing detect script to /home/fly_ws/install/detect/lib/detect
+Installing detect2 script to /home/fly_ws/install/detect/lib/detect
+Installing filter script to /home/fly_ws/install/detect/lib/detect
+Installing test script to /home/fly_ws/install/detect/lib/detect
+Installing without script to /home/fly_ws/install/detect/lib/detect
+
+Installed /home/fly_ws/build/detect
+running symlink_data
+symbolically linking /home/fly_ws/build/detect/resource/detect -> /home/fly_ws/install/detect/share/ament_index/resource_index/packages
+symbolically linking /home/fly_ws/build/detect/package.xml -> /home/fly_ws/install/detect/share/detect
