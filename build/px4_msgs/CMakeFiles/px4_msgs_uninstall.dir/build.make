@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fly2_ws/src/px4_msgs
+CMAKE_SOURCE_DIR = /home/cqu/fly2/src/px4_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fly2_ws/build/px4_msgs
+CMAKE_BINARY_DIR = /home/cqu/fly2/build/px4_msgs
 
 # Utility rule file for px4_msgs_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/px4_msgs_uninstall.dir/compiler_depend.make
 include CMakeFiles/px4_msgs_uninstall.dir/progress.make
 
 CMakeFiles/px4_msgs_uninstall:
-	/usr/bin/cmake -P /home/fly2_ws/build/px4_msgs/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/cqu/fly2/build/px4_msgs/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 px4_msgs_uninstall: CMakeFiles/px4_msgs_uninstall
 px4_msgs_uninstall: CMakeFiles/px4_msgs_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/px4_msgs_uninstall.dir/clean:
 .PHONY : CMakeFiles/px4_msgs_uninstall.dir/clean
 
 CMakeFiles/px4_msgs_uninstall.dir/depend:
-	cd /home/fly2_ws/build/px4_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fly2_ws/src/px4_msgs /home/fly2_ws/src/px4_msgs /home/fly2_ws/build/px4_msgs /home/fly2_ws/build/px4_msgs /home/fly2_ws/build/px4_msgs/CMakeFiles/px4_msgs_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cqu/fly2/build/px4_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cqu/fly2/src/px4_msgs /home/cqu/fly2/src/px4_msgs /home/cqu/fly2/build/px4_msgs /home/cqu/fly2/build/px4_msgs /home/cqu/fly2/build/px4_msgs/CMakeFiles/px4_msgs_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/px4_msgs_uninstall.dir/depend
 

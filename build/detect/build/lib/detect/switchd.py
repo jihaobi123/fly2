@@ -66,19 +66,26 @@ class OffboardControlNode(Node):
         self.turn_wait_start = None
 
         # 误差阈值
-        self.pos_eps = 0.08  # 位置误差8厘米
+        self.pos_eps = 0.15  # 位置误差8厘米
         self.yaw_eps = 0.03  # 朝向误差约17.2°
 
         # 新增：初始化nav_trigger_hold
         self.nav_trigger_hold = False
 
+        # 新增：初始化延迟计数器
+        self.initialization_delay_counter = 0  # 用于IMU稳定等待
+        self.post_arm_hold_counter = 0  # 解锁后延迟进入offboard
+        self.just_armed = False  # 标记刚解锁
+
         # 每段路径在机体坐标系中的相对移动
         self.relative_points = [
-            (0.0, 2.92),  # 向上飞2.92米
-            (1.3, 2.92),  # 向前飞1.3米
+            (0.0, 0.0),
+            (0.0, 2.92),   # 向上飞2.92米
+            (1.3, 2.92),   # 向前飞1.3米
+            (1.3, 0.0),
             (1.3, -2.92), # 向下飞5.84米
-            (0.0, -2.92), # 向后飞1.3米
-            (0.0, 0.0)    # 回到起点
+            (0.0, -2.92),  # 向后飞1.3米
+            (0.0, 0.0)     # 回到起点
         ]
         
         # 起飞时自动记录初始位置和朝向
@@ -91,46 +98,8 @@ class OffboardControlNode(Node):
         # 添加日志以验证初始位置和朝向
         self.get_logger().info(f"初始位置: x={self.initial_x}, y={self.initial_y}, yaw={self.initial_yaw}")
 
-        # 修正坐标系转换逻辑，确保转换正确
-        def convert_relative_to_ned(relative_points, initial_x, initial_y, initial_yaw):
-            if initial_x is None or initial_y is None or initial_yaw is None:
-                raise ValueError("初始位置或航向未初始化")
-            ned_points = []
-            for dx_body, dy_body in relative_points:
-                dx_world = dx_body * math.cos(initial_yaw) - dy_body * math.sin(initial_yaw)
-                dy_world = dx_body * math.sin(initial_yaw) + dy_body * math.cos(initial_yaw)
-                ned_points.append((initial_x + dx_world, initial_y + dy_world))
-            return ned_points
-
         # 初始化时不进行航点转换，避免NoneType错误
         self.ned_points = []
-
-        # 在位置回调中记录初始位置和航向
-        def vehicle_local_position_callback(self, msg):
-            self.current_height_ = msg.z
-            self.current_x_ = msg.x
-            self.current_y_ = msg.y
-            self.current_yaw_ = msg.heading
-
-            # 自动记录初始位置和航向，只记录一次
-            if not self.initialized and self.current_x_ is not None and self.current_y_ is not None:
-                # 确保初始值初始化
-                if self.initial_x is None and self.initial_y is None:
-                    self.initial_x = self.current_x_
-                    self.initial_y = self.current_y_
-
-                # 在记录初始位置和航向前，增加稳定性检查
-                if abs(self.current_x_ - self.initial_x) < self.pos_eps and abs(self.current_y_ - self.initial_y) < self.pos_eps:
-                    self.initial_x = self.current_x_
-                    self.initial_y = self.current_y_
-                    self.initial_yaw = self.current_yaw_
-                    self.ned_points = self.convert_frd_to_ned(self.relative_points, self.initial_x, self.initial_y, self.initial_yaw)
-                    self.get_logger().info(f"自动记录初始位置: x={self.initial_x}, y={self.initial_y}, yaw={self.initial_yaw}")
-                    self.get_logger().info(f"转换后的NED航点: {self.ned_points}")
-                    self.initialized = True
-
-        # 重写位置回调函数
-        self.vehicle_local_position_callback = vehicle_local_position_callback
 
         # 订阅/nav_trigger（Bool型）和/nav_offset（Point型）
         self.nav_trigger_sub = self.create_subscription(
@@ -156,6 +125,9 @@ class OffboardControlNode(Node):
 
     def send_position(self):
         """连续发送位置设定点 (20Hz)"""
+        if not self.initialized:
+            return  # 位置还没初始化不能发指令
+
         offboard_control_mode = OffboardControlMode()
         offboard_control_mode.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         offboard_control_mode.position = True
@@ -167,22 +139,27 @@ class OffboardControlNode(Node):
         trajectory_setpoint = TrajectorySetpoint()
         trajectory_setpoint.timestamp = int(self.get_clock().now().nanoseconds / 1000)
 
-        if self.is_calibrating:
-            # 校准模式下，位置设定为当前位置加上校准偏移
-            trajectory_setpoint.position[0] = self.current_x_ + self.nav_offset_x
-            trajectory_setpoint.position[1] = self.current_y_ + self.nav_offset_y
+        # 优化：offboard模式刚进入的前2秒也只发当前位置
+        if not self.offboard_mode_ or self.timer_count_ < 40:
+            trajectory_setpoint.position[0] = self.current_x_
+            trajectory_setpoint.position[1] = self.current_y_
             trajectory_setpoint.position[2] = self.target_altitude_
             trajectory_setpoint.yaw = self.current_yaw_
         else:
-            # 非校准模式下，按任务点飞行
-            trajectory_setpoint.position[0] = self.target_x_
-            trajectory_setpoint.position[1] = self.target_y_
-            trajectory_setpoint.position[2] = self.target_altitude_
-            trajectory_setpoint.yaw = self.target_yaw_
+            if self.is_calibrating:
+                trajectory_setpoint.position[0] = self.current_x_ + self.nav_offset_x
+                trajectory_setpoint.position[1] = self.current_y_ + self.nav_offset_y
+                trajectory_setpoint.position[2] = self.target_altitude_
+                trajectory_setpoint.yaw = self.current_yaw_
+            else:
+                trajectory_setpoint.position[0] = self.target_x_
+                trajectory_setpoint.position[1] = self.target_y_
+                trajectory_setpoint.position[2] = self.target_altitude_
+                trajectory_setpoint.yaw = self.target_yaw_
 
+        # 发布控制模式与目标点
         self.offboard_control_mode_pub_.publish(offboard_control_mode)
         self.trajectory_setpoint_pub_.publish(trajectory_setpoint)
-
         self.timer_count_ += 1
 
     def nav_trigger_callback(self, msg):
@@ -317,8 +294,11 @@ class OffboardControlNode(Node):
         was_armed = getattr(self, 'armed_', False)
         self.armed_ = msg.arming_state == VehicleStatus.ARMING_STATE_ARMED
         
+        # 优化1：刚解锁时，进入just_armed状态
         if self.armed_ and not was_armed:
             self.get_logger().info("✓ 无人机已解锁")
+            self.just_armed = True
+            self.post_arm_hold_counter = 0
 
         was_offboard = getattr(self, 'offboard_mode_', False)
         self.offboard_mode_ = msg.nav_state == VehicleStatus.NAVIGATION_STATE_OFFBOARD
@@ -333,6 +313,11 @@ class OffboardControlNode(Node):
         self.current_x_ = msg.x
         self.current_y_ = msg.y
         self.current_yaw_ = msg.heading  # 获取无人机当前朝向
+
+        # 优化2：IMU初始化等待，计数未到前不记录初始点
+        if self.initialization_delay_counter < 40:  # 2秒等待
+            self.initialization_delay_counter += 1
+            return
 
         # 自动记录初始位置和朝向，只记录一次
         if not self.initialized and self.current_x_ is not None and self.current_y_ is not None:

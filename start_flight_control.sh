@@ -22,7 +22,8 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 echo "🚁 启动 MicroXRCEAgent..."
-MicroXRCEAgent serial --dev /dev/ttyUSB0 -b 921600 &
+#MicroXRCEAgent serial --dev /dev/ttyUSB0 -b 921600 &
+MicroXRCEAgent udp4 -p 8888 &
 AGENT_PID=$!
 echo "MicroXRCEAgent started with PID: $AGENT_PID"
 

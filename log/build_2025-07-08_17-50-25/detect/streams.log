@@ -1,0 +1,26 @@
+[0.817s] Invoking command in '/home/cqu/fly2/src/detect': PYTHONPATH=/home/cqu/fly2/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/detect build --build-base /home/cqu/fly2/build/detect/build install --record /home/cqu/fly2/build/detect/install.log --single-version-externally-managed install_data
+[0.992s] running egg_info
+[0.993s] writing ../../build/detect/detect.egg-info/PKG-INFO
+[0.993s] writing dependency_links to ../../build/detect/detect.egg-info/dependency_links.txt
+[0.994s] writing entry points to ../../build/detect/detect.egg-info/entry_points.txt
+[0.994s] writing requirements to ../../build/detect/detect.egg-info/requires.txt
+[0.994s] writing top-level names to ../../build/detect/detect.egg-info/top_level.txt
+[0.995s] reading manifest file '../../build/detect/detect.egg-info/SOURCES.txt'
+[0.995s] writing manifest file '../../build/detect/detect.egg-info/SOURCES.txt'
+[0.995s] running build
+[0.995s] running build_py
+[0.996s] copying detect/switchd.py -> /home/cqu/fly2/build/detect/build/lib/detect
+[0.996s] running install
+[0.996s] running install_lib
+[0.997s] copying /home/cqu/fly2/build/detect/build/lib/detect/switchd.py -> /home/cqu/fly2/install/detect/lib/python3.10/site-packages/detect
+[0.998s] byte-compiling /home/cqu/fly2/install/detect/lib/python3.10/site-packages/detect/switchd.py to switchd.cpython-310.pyc
+[1.000s] running install_data
+[1.000s] running install_egg_info
+[1.002s] removing '/home/cqu/fly2/install/detect/lib/python3.10/site-packages/detect-0.0.0-py3.10.egg-info' (and everything under it)
+[1.002s] Copying ../../build/detect/detect.egg-info to /home/cqu/fly2/install/detect/lib/python3.10/site-packages/detect-0.0.0-py3.10.egg-info
+[1.002s] running install_scripts
+[1.017s] Installing barrel_manager script to /home/cqu/fly2/install/detect/lib/detect
+[1.017s] Installing planb script to /home/cqu/fly2/install/detect/lib/detect
+[1.017s] Installing switchd script to /home/cqu/fly2/install/detect/lib/detect
+[1.018s] writing list of installed files to '/home/cqu/fly2/build/detect/install.log'
+[1.050s] Invoked command in '/home/cqu/fly2/src/detect' returned '0': PYTHONPATH=/home/cqu/fly2/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/detect build --build-base /home/cqu/fly2/build/detect/build install --record /home/cqu/fly2/build/detect/install.log --single-version-externally-managed install_data

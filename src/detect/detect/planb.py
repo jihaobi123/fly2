@@ -3,8 +3,10 @@ warnings.simplefilter('ignore', category=FutureWarning)
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from sensor_msgs.msg import Image
-from geometry_msgs.msg import Point, PoseStamped
+from geometry_msgs.msg import Point
+from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand, VehicleLocalPosition, VehicleStatus, VehicleOdometry
 from std_msgs.msg import Float32, Bool, String
 from cv_bridge import CvBridge
 from ultralytics import YOLO
@@ -19,9 +21,25 @@ class BucketDetectorNode(Node):
         super().__init__('bucket_detector')
 
         # 订阅图像与深度图
-        self.color_sub = self.create_subscription(Image, '/camera/camera/color/image_raw', self.color_cb, 10)
-        self.depth_sub = self.create_subscription(Image, '/camera/camera/depth/image_rect_raw', self.depth_cb, 10)
-        self.pose_sub = self.create_subscription(PoseStamped, '/mavros/local_position/pose', self.pose_cb, 10)
+        self.color_sub = self.create_subscription(
+            Image,
+            '/camera/camera/color/image_raw',
+            self.color_cb,
+            qos_profile_sensor_data
+        )
+        self.depth_sub = self.create_subscription(
+            Image,
+            '/camera/camera/depth/image_rect_raw',
+            self.depth_cb,
+            qos_profile_sensor_data
+        )
+        # 订阅 PX4 发布的本地位置消息
+        self.pose_sub = self.create_subscription(
+            VehicleLocalPosition,
+            '/fmu/out/vehicle_local_position',
+            self.pose_cb,
+            qos_profile_sensor_data
+        )
 
         # 发布给成员 A 的通知话题
         self.trigger_pub = self.create_publisher(Bool, '/nav_trigger', 10)
@@ -31,12 +49,14 @@ class BucketDetectorNode(Node):
         self.bucket_report_pub = self.create_publisher(String, '/buckets_report', 10)
 
         # 模型加载（YOLOv8）
-        self.model = YOLO('/home/weights/best.engine')
+        self.model = YOLO('/home/cqu/weights/best.pt')
 
         self.bridge = CvBridge()
         self.color_image = None
         self.depth_image = None
-        self.current_pose = None
+        self.current_x = None
+        self.current_y = None
+        self.current_z = None
 
         self.detecting = False
         self.frame_buffer = deque(maxlen=10)
@@ -48,8 +68,15 @@ class BucketDetectorNode(Node):
         self.get_logger().info("YOLOv8 Bucket detector initialized")
         cv2.namedWindow("Color Detection", cv2.WINDOW_NORMAL)
 
-    def pose_cb(self, msg):
-        self.current_pose = msg.pose
+    def pose_cb(self, msg: VehicleLocalPosition):
+        # VehicleLocalPosition 中直接包含 x,y,z
+        self.current_x = msg.x
+        self.current_y = msg.y
+        self.current_z = msg.z
+        self.get_logger().info(
+            f"[pose_cb] 位姿更新: x={self.current_x:.2f}, "
+            f"y={self.current_y:.2f}, z={self.current_z:.2f}"
+        )
 
     def color_cb(self, msg):
         self.color_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
@@ -60,6 +87,10 @@ class BucketDetectorNode(Node):
         self.depth_image = self.bridge.imgmsg_to_cv2(msg, 'passthrough')
 
     def process(self):
+        # 保证彩色图、深度图和无人机位置都已就绪
+        if self.color_image is None or self.depth_image is None:
+            self.get_logger().info("等待图像或位姿输入...")
+            return
         detections = self.detect()
         h, w = self.color_image.shape[:2]
         fx = 605.7783
@@ -79,14 +110,17 @@ class BucketDetectorNode(Node):
             if cy < h * 0.25 or cy > h * 0.75:
                 continue
 
+            # 检查深度图是否有效
+            if cy >= self.depth_image.shape[0] or cx >= self.depth_image.shape[1]:
+                continue
             depth = self.depth_image[cy, cx] * 0.001
             if depth <= 0:
                 continue
 
             # 检查是否已经处理过这个位置的桶
-            if self.current_pose:
-                px = self.current_pose.position.x
-                py = self.current_pose.position.y
+            if self.current_x is not None:
+                px = self.current_x
+                py = self.current_y
                 skip = False
                 for old_x, old_y in self.found_positions:
                     if math.hypot(px - old_x, py - old_y) < 1.0:
@@ -141,13 +175,15 @@ class BucketDetectorNode(Node):
             
             # 检查是否接近画面中心
             if distance_to_center <= dynamic_threshold:
+                self.trigger_pub.publish(Bool(data=True))  # 通知A进入校准
                 # 圆筒靠中 —— 开始／持续记录，不再发偏差
                 if not self.recording:
                     bucket_rank = "1st" if len(valid_detections) == 1 else f"1st of {len(valid_detections)}"
                     self.get_logger().info(f"Bucket near center ({bucket_rank}, distance: {distance_to_center:.1f}px, threshold: {dynamic_threshold:.1f}px), start recording")
                     self.recording = True
-                
+                    self.detecting = True
                 self.frame_buffer.append((x2 - x1, depth))
+                self.get_logger().info(f"📸 Recording frame {len(self.frame_buffer)}/10")
                 
                 # 显示中心状态
                 cv2.circle(self.color_image, (int(cx0), int(cy0)), int(dynamic_threshold), (0, 0, 255), 2)
@@ -157,30 +193,9 @@ class BucketDetectorNode(Node):
                 if len(self.frame_buffer) == self.frame_buffer.maxlen:
                     self.finalize_bucket(cx, cy, depth)
             else:
-                # 圆筒不在中心 —— 只有在"已发出跳航信号"后才持续发偏差
-                if not self.detecting:
-                    # 首次检测到圆筒，通知成员A跳出航线
-                    bucket_rank = "1st" if len(valid_detections) == 1 else f"1st of {len(valid_detections)}"
-                    self.get_logger().info(f"📣 Publish to Member A: /nav_trigger -> True (bucket detected, {bucket_rank})")
-                    self.trigger_pub.publish(Bool(data=True))
-                    self.detecting = True
-                else:
-                    # 只有在 detecting==True 时，才持续发偏差
-                    if depth > 0:
-                        dx_meters = dx * depth / 605.7783
-                        dy_meters = dy * depth / 605.7783
-                        off = Point(x=dx_meters, y=dy_meters, z=0.0)
-                        self.get_logger().info(
-                            f"📣 Publish to Member A: /nav_offset -> dx={dx_meters:.3f}m, dy={dy_meters:.3f}m (dist: {distance_to_center:.1f}px, thr: {dynamic_threshold:.1f}px)"
-                        )
-                    else:
-                        off = Point(x=dx, y=dy, z=0.0)
-                        self.get_logger().info(
-                            f"📣 Publish to Member A: /nav_offset -> dx={dx:.1f}, dy={dy:.1f} (dist: {distance_to_center:.1f}px, thr: {dynamic_threshold:.1f}px)"
-                        )
-                    
-                    self.offset_pub.publish(off)
-                
+                # 圆筒不在中心 —— 只暂停录制，不清空帧缓存
+                if self.recording:
+                    self.get_logger().info(f"🎞️ Bucket lost center - keep buffer ({len(self.frame_buffer)}/10)")
                 # 显示偏差状态
                 cv2.circle(self.color_image, (int(cx0), int(cy0)), int(dynamic_threshold), (255, 0, 0), 2)
                 cv2.putText(self.color_image, f"Adjust: {distance_to_center:.1f}px (thr {dynamic_threshold:.1f})", 
@@ -188,7 +203,7 @@ class BucketDetectorNode(Node):
 
         # 如果没有检测到圆筒，且之前正在检测，则重置状态
         if not detections and self.detecting:
-            self.get_logger().info("No bucket detected, resetting detection state")
+            self.get_logger().info(f"No bucket detected, resetting detection state and buffer (buffer length: {len(self.frame_buffer)})")
             self.detecting = False
             self.recording = False
             self.frame_buffer.clear()
@@ -204,10 +219,13 @@ class BucketDetectorNode(Node):
 
 
     def finalize_bucket(self, cx, cy, depth):
-        if not self.current_pose:
+        self.get_logger().info("🎯 finalize_bucket() called")
+        # 必须先有位置数据才能记录并发布 False
+        if self.current_x is None:
+            self.get_logger().warn("[finalize_bucket] 缺少位姿，跳过发布 False")
             return
-        px = self.current_pose.position.x
-        py = self.current_pose.position.y
+        px = self.current_x
+        py = self.current_y
         for old in self.found_positions:
             if math.hypot(px - old[0], py - old[1]) < 1.0:
                 self.get_logger().info(f"Duplicate bucket skipped at position ({px:.2f}, {py:.2f}) - too close to previous bucket")
@@ -225,7 +243,9 @@ class BucketDetectorNode(Node):
             'pixel_width': avg_width,
             'depth': avg_depth,
             'diameter': real_diameter,
-            'pose': self.current_pose,
+            'x': px,
+            'y': py,
+            'z': self.current_z,
             'height': depth  # 记录当前高度
         })
 
@@ -268,9 +288,9 @@ class BucketDetectorNode(Node):
                 'depth': round(bucket['depth'], 2),
                 'height': round(bucket['height'], 2),
                 'position': {
-                    'x': round(bucket['pose'].position.x, 2),
-                    'y': round(bucket['pose'].position.y, 2),
-                    'z': round(bucket['pose'].position.z, 2)
+                    'x': round(bucket['x'], 2),
+                    'y': round(bucket['y'], 2),
+                    'z': round(bucket['z'], 2)
                 }
             }
             report_data['buckets'].append(bucket_info)

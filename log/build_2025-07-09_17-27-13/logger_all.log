@@ -1,0 +1,299 @@
+[0.055s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.055s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=20, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f7d451edcf0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f7d451ed150>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f7d451ed150>>)
+[0.139s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.139s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.139s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.139s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.139s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.140s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.140s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/cqu/fly2'
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.140s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.146s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extensions ['ignore', 'ignore_ament_install']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extension 'ignore'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extension 'ignore_ament_install'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extensions ['colcon_pkg']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extension 'colcon_pkg'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extensions ['colcon_meta']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extension 'colcon_meta'
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extensions ['ros']
+[0.147s] Level 1:colcon.colcon_core.package_identification:_identify(src/barrel_manager) by extension 'ros'
+[0.149s] DEBUG:colcon.colcon_core.package_identification:Package 'src/barrel_manager' with type 'ros.ament_python' and name 'barrel_manager'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extensions ['ignore', 'ignore_ament_install']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extension 'ignore'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extension 'ignore_ament_install'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extensions ['colcon_pkg']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extension 'colcon_pkg'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extensions ['colcon_meta']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extension 'colcon_meta'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extensions ['ros']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/detect) by extension 'ros'
+[0.149s] DEBUG:colcon.colcon_core.package_identification:Package 'src/detect' with type 'ros.ament_python' and name 'detect'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extensions ['ignore', 'ignore_ament_install']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extension 'ignore'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extension 'ignore_ament_install'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extensions ['colcon_pkg']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extension 'colcon_pkg'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extensions ['colcon_meta']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extension 'colcon_meta'
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extensions ['ros']
+[0.149s] Level 1:colcon.colcon_core.package_identification:_identify(src/fly1) by extension 'ros'
+[0.150s] DEBUG:colcon.colcon_core.package_identification:Package 'src/fly1' with type 'ros.ament_python' and name 'control'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ignore'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ignore_ament_install'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['colcon_pkg']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'colcon_pkg'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['colcon_meta']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'colcon_meta'
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['ros']
+[0.150s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ros'
+[0.150s] DEBUG:colcon.colcon_core.package_identification:Package 'src/px4_msgs' with type 'ros.ament_cmake' and name 'px4_msgs'
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.150s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.167s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.167s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 4 installed packages in /home/cqu/fly2/install
+[0.168s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 280 installed packages in /opt/ros/humble
+[0.169s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_args' from command line to 'None'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_target' from command line to 'None'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_clean_cache' from command line to 'False'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_clean_first' from command line to 'False'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_force_configure' from command line to 'False'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'ament_cmake_args' from command line to 'None'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'catkin_cmake_args' from command line to 'None'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.187s] DEBUG:colcon.colcon_core.verb:Building package 'px4_msgs' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/cqu/fly2/build/px4_msgs', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/cqu/fly2/install/px4_msgs', 'merge_install': False, 'path': '/home/cqu/fly2/src/px4_msgs', 'symlink_install': False, 'test_result_base': None}
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'cmake_args' from command line to 'None'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'cmake_target' from command line to 'None'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.187s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'cmake_clean_cache' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'cmake_clean_first' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'cmake_force_configure' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'ament_cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'catkin_cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'barrel_manager' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.188s] DEBUG:colcon.colcon_core.verb:Building package 'barrel_manager' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/cqu/fly2/build/barrel_manager', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/cqu/fly2/install/barrel_manager', 'merge_install': False, 'path': '/home/cqu/fly2/src/barrel_manager', 'symlink_install': False, 'test_result_base': None}
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'cmake_target' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'cmake_clean_cache' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'cmake_clean_first' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'cmake_force_configure' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'ament_cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'catkin_cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'control' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.188s] DEBUG:colcon.colcon_core.verb:Building package 'control' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/cqu/fly2/build/control', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/cqu/fly2/install/control', 'merge_install': False, 'path': '/home/cqu/fly2/src/fly1', 'symlink_install': False, 'test_result_base': None}
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'cmake_target' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'cmake_clean_cache' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'cmake_clean_first' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'cmake_force_configure' from command line to 'False'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'ament_cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'catkin_cmake_args' from command line to 'None'
+[0.188s] Level 5:colcon.colcon_core.verb:set package 'detect' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.188s] DEBUG:colcon.colcon_core.verb:Building package 'detect' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/cqu/fly2/build/detect', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/cqu/fly2/install/detect', 'merge_install': False, 'path': '/home/cqu/fly2/src/detect', 'symlink_install': False, 'test_result_base': None}
+[0.188s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.189s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.189s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/cqu/fly2/src/px4_msgs' with build type 'ament_cmake'
+[0.189s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/cqu/fly2/src/px4_msgs'
+[0.190s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.190s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.190s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.195s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/cqu/fly2/build/px4_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cqu/fly2/install/detect:/home/cqu/fly2/install/control:/home/cqu/fly2/install/barrel_manager:/opt/ros/humble /usr/bin/cmake --build /home/cqu/fly2/build/px4_msgs -- -j20 -l20
+[0.666s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/cqu/fly2/build/px4_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cqu/fly2/install/detect:/home/cqu/fly2/install/control:/home/cqu/fly2/install/barrel_manager:/opt/ros/humble /usr/bin/cmake --build /home/cqu/fly2/build/px4_msgs -- -j20 -l20
+[0.671s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/cqu/fly2/build/px4_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cqu/fly2/install/detect:/home/cqu/fly2/install/control:/home/cqu/fly2/install/barrel_manager:/opt/ros/humble /usr/bin/cmake --install /home/cqu/fly2/build/px4_msgs
+[0.813s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_msgs)
+[0.814s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/cqu/fly2/build/px4_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/cqu/fly2/install/detect:/home/cqu/fly2/install/control:/home/cqu/fly2/install/barrel_manager:/opt/ros/humble /usr/bin/cmake --install /home/cqu/fly2/build/px4_msgs
+[0.815s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs' for CMake module files
+[0.815s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs' for CMake config files
+[0.815s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'cmake_prefix_path')
+[0.815s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.ps1'
+[0.816s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.dsv'
+[0.816s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.sh'
+[0.816s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/lib'
+[0.817s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'ld_library_path_lib')
+[0.817s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.ps1'
+[0.817s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.dsv'
+[0.817s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.sh'
+[0.817s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/bin'
+[0.817s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/lib/pkgconfig/px4_msgs.pc'
+[0.817s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/lib/python3.10/site-packages'
+[0.817s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/bin'
+[0.818s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.ps1'
+[0.818s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.dsv'
+[0.818s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.sh'
+[0.819s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.bash'
+[0.819s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.zsh'
+[0.819s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/cqu/fly2/install/px4_msgs/share/colcon-core/packages/px4_msgs)
+[0.820s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_msgs)
+[0.820s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs' for CMake module files
+[0.820s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs' for CMake config files
+[0.820s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'cmake_prefix_path')
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.ps1'
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.dsv'
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.sh'
+[0.821s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/lib'
+[0.821s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'ld_library_path_lib')
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.ps1'
+[0.821s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.dsv'
+[0.822s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.sh'
+[0.822s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/bin'
+[0.822s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/lib/pkgconfig/px4_msgs.pc'
+[0.822s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/lib/python3.10/site-packages'
+[0.822s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/px4_msgs/bin'
+[0.822s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.ps1'
+[0.822s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.dsv'
+[0.823s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.sh'
+[0.823s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.bash'
+[0.823s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/px4_msgs/share/px4_msgs/package.zsh'
+[0.823s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/cqu/fly2/install/px4_msgs/share/colcon-core/packages/px4_msgs)
+[0.823s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/cqu/fly2/src/barrel_manager' with build type 'ament_python'
+[0.824s] Level 1:colcon.colcon_core.shell:create_environment_hook('barrel_manager', 'ament_prefix_path')
+[0.824s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/hook/ament_prefix_path.ps1'
+[0.824s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/hook/ament_prefix_path.dsv'
+[0.824s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/hook/ament_prefix_path.sh'
+[0.825s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.825s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.826s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/cqu/fly2/src/fly1' with build type 'ament_python'
+[0.826s] Level 1:colcon.colcon_core.shell:create_environment_hook('control', 'ament_prefix_path')
+[0.826s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/control/share/control/hook/ament_prefix_path.ps1'
+[0.827s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/control/share/control/hook/ament_prefix_path.dsv'
+[0.827s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/control/share/control/hook/ament_prefix_path.sh'
+[0.827s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.827s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.829s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/cqu/fly2/src/detect' with build type 'ament_python'
+[0.829s] Level 1:colcon.colcon_core.shell:create_environment_hook('detect', 'ament_prefix_path')
+[0.829s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/detect/share/detect/hook/ament_prefix_path.ps1'
+[0.829s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/detect/share/detect/hook/ament_prefix_path.dsv'
+[0.829s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/detect/share/detect/hook/ament_prefix_path.sh'
+[0.830s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.830s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.968s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/cqu/fly2/src/barrel_manager'
+[0.968s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.968s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.102s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/cqu/fly2/src/fly1'
+[1.103s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.103s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.239s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/cqu/fly2/src/detect'
+[1.239s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.239s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.423s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/cqu/fly2/src/barrel_manager': PYTHONPATH=/home/cqu/fly2/build/barrel_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/barrel_manager/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/barrel_manager build --build-base /home/cqu/fly2/build/barrel_manager/build install --record /home/cqu/fly2/build/barrel_manager/install.log --single-version-externally-managed install_data
+[1.423s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/cqu/fly2/src/fly1': PYTHONPATH=/home/cqu/fly2/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/control build --build-base /home/cqu/fly2/build/control/build install --record /home/cqu/fly2/build/control/install.log --single-version-externally-managed install_data
+[1.425s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/cqu/fly2/src/detect': PYTHONPATH=/home/cqu/fly2/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/detect build --build-base /home/cqu/fly2/build/detect/build install --record /home/cqu/fly2/build/detect/install.log --single-version-externally-managed install_data
+[1.582s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager' for CMake module files
+[1.582s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/cqu/fly2/src/barrel_manager' returned '0': PYTHONPATH=/home/cqu/fly2/build/barrel_manager/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/barrel_manager/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/barrel_manager build --build-base /home/cqu/fly2/build/barrel_manager/build install --record /home/cqu/fly2/build/barrel_manager/install.log --single-version-externally-managed install_data
+[1.582s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager' for CMake config files
+[1.583s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager/lib'
+[1.583s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager/bin'
+[1.583s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager/lib/pkgconfig/barrel_manager.pc'
+[1.583s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager/lib/python3.10/site-packages'
+[1.583s] Level 1:colcon.colcon_core.shell:create_environment_hook('barrel_manager', 'pythonpath')
+[1.583s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/hook/pythonpath.ps1'
+[1.583s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/hook/pythonpath.dsv'
+[1.584s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/hook/pythonpath.sh'
+[1.584s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/barrel_manager/bin'
+[1.584s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(barrel_manager)
+[1.584s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/package.ps1'
+[1.585s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/package.dsv'
+[1.585s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/package.sh'
+[1.585s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/package.bash'
+[1.585s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/barrel_manager/share/barrel_manager/package.zsh'
+[1.585s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/cqu/fly2/install/barrel_manager/share/colcon-core/packages/barrel_manager)
+[1.586s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control' for CMake module files
+[1.586s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control' for CMake config files
+[1.587s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/cqu/fly2/src/fly1' returned '0': PYTHONPATH=/home/cqu/fly2/build/control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/control build --build-base /home/cqu/fly2/build/control/build install --record /home/cqu/fly2/build/control/install.log --single-version-externally-managed install_data
+[1.587s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control/lib'
+[1.587s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control/bin'
+[1.587s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control/lib/pkgconfig/control.pc'
+[1.587s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control/lib/python3.10/site-packages'
+[1.587s] Level 1:colcon.colcon_core.shell:create_environment_hook('control', 'pythonpath')
+[1.587s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/control/share/control/hook/pythonpath.ps1'
+[1.588s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/control/share/control/hook/pythonpath.dsv'
+[1.588s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/control/share/control/hook/pythonpath.sh'
+[1.588s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/control/bin'
+[1.588s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(control)
+[1.588s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/control/share/control/package.ps1'
+[1.589s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/cqu/fly2/install/control/share/control/package.dsv'
+[1.589s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/control/share/control/package.sh'
+[1.589s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/control/share/control/package.bash'
+[1.589s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/control/share/control/package.zsh'
+[1.589s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/cqu/fly2/install/control/share/colcon-core/packages/control)
+[1.590s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect' for CMake module files
+[1.590s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/cqu/fly2/src/detect' returned '0': PYTHONPATH=/home/cqu/fly2/build/detect/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/cqu/fly2/install/detect/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/detect build --build-base /home/cqu/fly2/build/detect/build install --record /home/cqu/fly2/build/detect/install.log --single-version-externally-managed install_data
+[1.590s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect' for CMake config files
+[1.591s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect/lib'
+[1.591s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect/bin'
+[1.591s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect/lib/pkgconfig/detect.pc'
+[1.591s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect/lib/python3.10/site-packages'
+[1.591s] Level 1:colcon.colcon_core.shell:create_environment_hook('detect', 'pythonpath')
+[1.591s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/detect/share/detect/hook/pythonpath.ps1'
+[1.591s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/cqu/fly2/install/detect/share/detect/hook/pythonpath.dsv'
+[1.591s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/cqu/fly2/install/detect/share/detect/hook/pythonpath.sh'
+[1.592s] Level 1:colcon.colcon_core.environment:checking '/home/cqu/fly2/install/detect/bin'
+[1.592s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(detect)
+[1.592s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/detect/share/detect/package.ps1'
+[1.592s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/cqu/fly2/install/detect/share/detect/package.dsv'
+[1.592s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/detect/share/detect/package.sh'
+[1.593s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/detect/share/detect/package.bash'
+[1.593s] INFO:colcon.colcon_core.shell:Creating package script '/home/cqu/fly2/install/detect/share/detect/package.zsh'
+[1.593s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/cqu/fly2/install/detect/share/colcon-core/packages/detect)
+[1.593s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.593s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.593s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.593s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.596s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.596s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.596s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.603s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.603s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/cqu/fly2/install/local_setup.ps1'
+[1.603s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/cqu/fly2/install/_local_setup_util_ps1.py'
+[1.604s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/cqu/fly2/install/setup.ps1'
+[1.605s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/cqu/fly2/install/local_setup.sh'
+[1.605s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/cqu/fly2/install/_local_setup_util_sh.py'
+[1.605s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/cqu/fly2/install/setup.sh'
+[1.606s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/cqu/fly2/install/local_setup.bash'
+[1.606s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/cqu/fly2/install/setup.bash'
+[1.606s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/cqu/fly2/install/local_setup.zsh'
+[1.607s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/cqu/fly2/install/setup.zsh'

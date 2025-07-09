@@ -30,7 +30,8 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 echo "🔍 启动 RealSense 相机节点..."
-source /opt/ros/humble/setup.bash
+cd /home/cqu/ros2_ws
+source install/local_setup.bash
 ros2 launch realsense2_camera rs_launch.py align_depth.enable:=true &
 CAMERA_PID=$!
 

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fly2_ws/src/px4_msgs
+CMAKE_SOURCE_DIR = /home/cqu/fly2/src/px4_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fly2_ws/build/px4_msgs
+CMAKE_BINARY_DIR = /home/cqu/fly2/build/px4_msgs
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/fly2_ws/build/px4_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fly2_ws/src/px4_msgs /home/fly2_ws/src/px4_msgs /home/fly2_ws/build/px4_msgs /home/fly2_ws/build/px4_msgs /home/fly2_ws/build/px4_msgs/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cqu/fly2/build/px4_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cqu/fly2/src/px4_msgs /home/cqu/fly2/src/px4_msgs /home/cqu/fly2/build/px4_msgs /home/cqu/fly2/build/px4_msgs /home/cqu/fly2/build/px4_msgs/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

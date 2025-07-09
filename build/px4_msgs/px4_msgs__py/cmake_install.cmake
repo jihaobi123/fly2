@@ -1,8 +1,8 @@
-# Install script for directory: /home/fly2_ws/build/px4_msgs/px4_msgs__py
+# Install script for directory: /home/cqu/fly2/build/px4_msgs/px4_msgs__py
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/fly2_ws/install/px4_msgs")
+  set(CMAKE_INSTALL_PREFIX "/home/cqu/fly2/install/px4_msgs")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
