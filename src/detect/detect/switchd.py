@@ -79,7 +79,6 @@ class OffboardControlNode(Node):
 
         # 每段路径在机体坐标系中的相对移动
         self.relative_points = [
-            (0.0, 0.0),
             (0.0, 2.92),   # 向上飞2.92米
             (1.3, 2.92),   # 向前飞1.3米
             (1.3, 0.0),
@@ -121,6 +120,38 @@ class OffboardControlNode(Node):
         self.nav_offset_x = 0.0  # 校准的水平偏差x
         self.nav_offset_y = 0.0  # 校准的垂直偏差y
 
+        # 新增：订阅下一个桶目标点
+        self.next_bucket_point_sub = self.create_subscription(
+            Point,
+            '/next_bucket_point',
+            self.next_bucket_point_callback,
+            10
+        )
+        self.next_target_received = False
+        # 用来区分收到的是第几次桶目标
+        self.bucket_points_received = 0
+
+        # —— 新增：记录投水完成次数及后续飞行阶段 —— 
+        self.drop_count = 0
+        self.do_final_phase = False    # 是否进入"后续区域飞行"阶段
+        self.final_phase = 0           # 0=旋转朝向,1=前进20m,2=保持
+        self.final_start_x = 0.0
+        self.final_start_y = 0.0
+        # 订阅投水完成通知（同 BarrelManager → DropMission 的 /drop_mission_complete）
+        self.drop_complete_sub = self.create_subscription(
+            Bool,
+            '/drop_mission_complete',
+            self.drop_complete_callback,
+            10
+        )
+
+        # 新增：发布到位通知给程序C
+        self.bucket_reached_pub = self.create_publisher(
+            Bool,
+            '/bucket_reached',
+            10
+        )
+
         self.get_logger().info("Offboard Control Node initialized")
 
     def send_position(self):
@@ -139,19 +170,64 @@ class OffboardControlNode(Node):
         trajectory_setpoint = TrajectorySetpoint()
         trajectory_setpoint.timestamp = int(self.get_clock().now().nanoseconds / 1000)
 
-        # 优化：offboard模式刚进入的前2秒也只发当前位置
+        # —— 优先处理"后续区域飞行" —— 
+        if self.do_final_phase:
+            # —— 1) 旋转朝向起飞时初始航向 —— 
+            if self.final_phase == 0:
+                trajectory_setpoint.position[0] = self.current_x_
+                trajectory_setpoint.position[1] = self.current_y_
+                trajectory_setpoint.position[2] = self.target_altitude_
+                trajectory_setpoint.yaw = self.initial_yaw
+                # 到位后进入前进
+                if self._reach_yaw(self.initial_yaw):
+                    self.final_phase = 1
+                    self.get_logger().info('完成朝向调整，开始前进20m')
+                    self.get_logger().info(f'目标位置: ({self.final_start_x + 20 * math.cos(self.initial_yaw):.2f}, {self.final_start_y + 20 * math.sin(self.initial_yaw):.2f})')
+            # —— 2) 向起飞前方前进20m —— 
+            elif self.final_phase == 1:
+                fx = self.final_start_x + 20 * math.cos(self.initial_yaw)
+                fy = self.final_start_y + 20 * math.sin(self.initial_yaw)
+                trajectory_setpoint.position[0] = fx
+                trajectory_setpoint.position[1] = fy
+                trajectory_setpoint.position[2] = self.target_altitude_
+                trajectory_setpoint.yaw = self.initial_yaw
+                if self._reach_pos(fx, fy, self.target_altitude_):
+                    self.final_phase = 2
+                    self.get_logger().info('完成20m前进，任务结束')
+                    self.get_logger().info(f'最终位置: ({self.current_x_:.2f}, {self.current_y_:.2f})')
+            # —— 3) 保持当前位置悬停 —— 
+            else:
+                trajectory_setpoint.position[0] = self.current_x_
+                trajectory_setpoint.position[1] = self.current_y_
+                trajectory_setpoint.position[2] = self.target_altitude_
+                trajectory_setpoint.yaw = self.initial_yaw
+
+            # 发布并退出，不执行原航线逻辑
+            self.offboard_control_mode_pub_.publish(offboard_control_mode)
+            self.trajectory_setpoint_pub_.publish(trajectory_setpoint)
+            self.timer_count_ += 1
+            return
+
+        # 原有：offboard模式刚进入的前2秒也只发当前位置
         if not self.offboard_mode_ or self.timer_count_ < 40:
             trajectory_setpoint.position[0] = self.current_x_
             trajectory_setpoint.position[1] = self.current_y_
             trajectory_setpoint.position[2] = self.target_altitude_
             trajectory_setpoint.yaw = self.current_yaw_
         else:
-            if self.is_calibrating:
+            if self.next_target_received:
+                # —— 新增：直接飞向下一个桶的目标点 —— 
+                trajectory_setpoint.position[0] = self.target_x_
+                trajectory_setpoint.position[1] = self.target_y_
+                trajectory_setpoint.position[2] = self.target_altitude_
+                trajectory_setpoint.yaw = self.current_yaw_
+            elif self.is_calibrating:
                 trajectory_setpoint.position[0] = self.current_x_ + self.nav_offset_x
                 trajectory_setpoint.position[1] = self.current_y_ + self.nav_offset_y
                 trajectory_setpoint.position[2] = self.target_altitude_
                 trajectory_setpoint.yaw = self.current_yaw_
             else:
+                # 保留原有的相对航点流程
                 trajectory_setpoint.position[0] = self.target_x_
                 trajectory_setpoint.position[1] = self.target_y_
                 trajectory_setpoint.position[2] = self.target_altitude_
@@ -161,6 +237,18 @@ class OffboardControlNode(Node):
         self.offboard_control_mode_pub_.publish(offboard_control_mode)
         self.trajectory_setpoint_pub_.publish(trajectory_setpoint)
         self.timer_count_ += 1
+
+        # 新增：检查是否到达桶目标点，发布到位通知
+        if (self.next_target_received and 
+            not self.do_final_phase and  # 确保只在"桶模式"下发到位通知
+            self._reach_pos(self.target_x_, self.target_y_, self.target_altitude_)):
+            # 发布到位通知给程序C
+            reached_msg = Bool()
+            reached_msg.data = True
+            self.bucket_reached_pub.publish(reached_msg)
+            self.get_logger().info(f"已到达桶目标点，发布到位通知: ({self.target_x_:.2f}, {self.target_y_:.2f})")
+            # 清除目标接收状态，避免重复发布
+            self.next_target_received = False
 
     def nav_trigger_callback(self, msg):
         self.nav_trigger_hold = msg.data
@@ -181,6 +269,54 @@ class OffboardControlNode(Node):
         self.nav_offset_y = msg.y
         self.get_logger().info(f"收到/nav_offset: x={msg.x:.2f}, y={msg.y:.2f}, z={msg.z:.2f}，开始校准")
 
+    def next_bucket_point_callback(self, msg):
+        """收到 BarrelManager 下发的下一个桶目标点"""
+        
+        self.get_logger().info(f"【DEBUG】 next_bucket_point_callback 被调用了！ msg=({msg.x:.2f},{msg.y:.2f},{msg.z:.2f})")
+        # 累计一次，并打印是小桶还是中桶
+        self.bucket_points_received += 1
+        if self.bucket_points_received == 1:
+            self.get_logger().info(
+                f"【小桶位置】收到 /next_bucket_point: x={msg.x:.2f}, y={msg.y:.2f}, z={msg.z:.2f}"
+            )
+        elif self.bucket_points_received == 2:
+            self.get_logger().info(
+                f"【中桶位置】收到 /next_bucket_point: x={msg.x:.2f}, y={msg.y:.2f}, z={msg.z:.2f}"
+            )
+        else:
+            self.get_logger().warn(
+                f"收到多余的桶目标 #{self.bucket_points_received}: x={msg.x:.2f}, y={msg.y:.2f}, z={msg.z:.2f}"
+            )
+
+        self.target_x_ = msg.x
+        self.target_y_ = msg.y
+        self.target_altitude_ = msg.z
+        # 一旦收到，就直接进入"直接飞向目标"模式
+        self.next_target_received = True
+
+    def drop_complete_callback(self, msg):
+        """处理每次投水完成，累计两次后进入后续飞行阶段"""
+        # 防止重复触发：如果已经进入最终阶段，则忽略后续消息
+        if self.do_final_phase:
+            return
+            
+        if msg.data:
+            self.drop_count += 1
+            self.get_logger().info(f"已完成第 {self.drop_count} 次投水")
+            if self.drop_count >= 2:
+                # 清除桶目标接收状态，防止逻辑冲突
+                self.next_target_received = False
+                # 重置桶目标计数器，为下次任务做准备
+                self.bucket_points_received = 0
+                # 记录开始后续飞行时的当前位置和朝向
+                self.final_start_x = self.current_x_
+                self.final_start_y = self.current_y_
+                self.do_final_phase = True
+                self.final_phase = 0
+                self.get_logger().info("进入完成投水后的区域飞行阶段")
+                self.get_logger().info(f"记录起始位置: ({self.final_start_x:.2f}, {self.final_start_y:.2f})")
+                self.get_logger().info(f"目标航向: {self.initial_yaw:.3f} rad")
+
     def convert_frd_to_ned(self, frd_points, current_x, current_y, current_yaw):
         """将FRD坐标系的航点转换为NED坐标系的航点"""
         ned_points = []
@@ -191,56 +327,46 @@ class OffboardControlNode(Node):
         return ned_points
 
     def control_sequence(self):
-        """控制序列：解锁 -> Offboard模式 -> 飞行"""
-        if not self.initialized:
-            return  # 未初始化前不推进状态机
-
-        if self.timer_count_ < 10:
+        # —— 打印当前模式 ——
+        if self.next_target_received:
+            self.get_logger().info('[MODE] Bucket（桶目标模式）')
+            # 正在飞桶目标，完全跳过原航线推进
             return
-
-        # 解锁
-        if not self.armed_ and not self.arm_command_sent_:
+        if self.do_final_phase:
+            self.get_logger().info('[MODE] Final（投水后续区域飞行模式）')
+            return
+        self.get_logger().info('[MODE] Line（原航线模式）')
+        # —— 3）原有解锁/Offboard/校准逻辑 —— 
+        if not self.initialized or self.timer_count_ < 10:
+            return
+        if not self.armed_:
             self.send_arm_command()
             self.arm_command_sent_ = True
             self.get_logger().info("发送解锁命令")
             return
-
-        # 步骤2：进入Offboard模式
-        if self.armed_ and not self.offboard_mode_ and not self.offboard_command_sent_:
+        if not self.offboard_mode_:
             self.send_offboard_command()
             self.offboard_command_sent_ = True
             self.get_logger().info("发送Offboard模式命令")
             return
-
-        # 校准时暂停航线推进
-        if self.is_calibrating:
+        if self.is_calibrating or self.nav_trigger_hold:
             self.get_logger().info("校准中，暂停航线推进")
             return
 
-        # nav_trigger为True时悬停，为False时恢复
-        if self.nav_trigger_hold:
-            self.target_x_ = self.current_x_
-            self.target_y_ = self.current_y_
-            self.target_yaw_ = self.current_yaw_
-            self.get_logger().info("因/nav_trigger悬停，等待恢复")
-            return
+        # 到这里才是按 stage 推进原航线
+        if self.stage < len(self.relative_points):
+            ned_point = self.ned_points[self.stage]
+            if ned_point:
+                self.target_x_, self.target_y_ = ned_point
+                self.target_yaw_ = self.current_yaw_
 
-        # 状态机：每个拐角分为"转头"和"前进"两个阶段
-        if self.offboard_mode_:
-            # 根据当前阶段设置目标点
-            if self.stage < len(self.relative_points):
-                ned_point = self.ned_points[self.stage]
-                if ned_point:
-                    self.target_x_, self.target_y_ = ned_point
-                    self.target_yaw_ = self.current_yaw_
-
-                    # 判断是否到达目标点
-                    if self._reach_pos(self.target_x_, self.target_y_, self.target_altitude_):
-                        self.stage += 1  # 进入下一阶段
-                        self.get_logger().info(f"阶段{self.stage - 1}完成，进入阶段{self.stage}")
-            else:
-                self.get_logger().info("所有任务点已完成")
-                self.stage = len(self.relative_points)  # 停止推进
+                # 判断是否到达目标点
+                if self._reach_pos(self.target_x_, self.target_y_, self.target_altitude_):
+                    self.stage += 1  # 进入下一阶段
+                    self.get_logger().info(f"阶段{self.stage - 1}完成，进入阶段{self.stage}")
+        else:
+            self.get_logger().info("所有任务点已完成")
+            self.stage = len(self.relative_points)  # 停止推进
 
     def _reach_pos(self, x, y, z):
         return (abs(self.current_x_ - x) < self.pos_eps and

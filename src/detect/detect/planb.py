@@ -65,6 +65,9 @@ class BucketDetectorNode(Node):
         self.recording = False
         self.center_threshold = 50  # 默认像素阈值，将被动态阈值替代
 
+        # 处理完成标志：三桶报告发出后就不再识别
+        self.completed = False
+
         self.get_logger().info("YOLOv8 Bucket detector initialized")
         cv2.namedWindow("Color Detection", cv2.WINDOW_NORMAL)
 
@@ -73,10 +76,10 @@ class BucketDetectorNode(Node):
         self.current_x = msg.x
         self.current_y = msg.y
         self.current_z = msg.z
-        self.get_logger().info(
-            f"[pose_cb] 位姿更新: x={self.current_x:.2f}, "
-            f"y={self.current_y:.2f}, z={self.current_z:.2f}"
-        )
+        #self.get_logger().info(
+            #f"[pose_cb] 位姿更新: x={self.current_x:.2f}, "
+            #f"y={self.current_y:.2f}, z={self.current_z:.2f}"
+        #)
 
     def color_cb(self, msg):
         self.color_image = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
@@ -87,6 +90,9 @@ class BucketDetectorNode(Node):
         self.depth_image = self.bridge.imgmsg_to_cv2(msg, 'passthrough')
 
     def process(self):
+        # 一旦发送完三桶报告后，直接跳过所有后续处理
+        if self.completed:
+            return
         # 保证彩色图、深度图和无人机位置都已就绪
         if self.color_image is None or self.depth_image is None:
             self.get_logger().info("等待图像或位姿输入...")
@@ -268,6 +274,8 @@ class BucketDetectorNode(Node):
             self.bucket_report_pub.publish(report_msg)
             # 发布完报表后清空数据，避免重复发送
             self.bucket_data.clear()
+            # —— 三桶报告发出后，标记完成，不再继续识别 —— #
+            self.completed = True
 
     def create_bucket_report(self):
         """创建圆筒报告消息"""

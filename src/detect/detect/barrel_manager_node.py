@@ -12,6 +12,9 @@ import math
 
 import time
 
+from rclpy.qos import qos_profile_sensor_data
+from px4_msgs.msg import VehicleLocalPosition
+
 
 
 class BarrelManager(Node):
@@ -84,17 +87,12 @@ class BarrelManager(Node):
 
             10)
 
-        # 订阅无人机当前位置
-
+        # 订阅无人机当前位置（PX4 → VehicleLocalPosition）
         self.drone_position_subscription = self.create_subscription(
-
-            PoseStamped,
-
-            '/mavros/local_position/pose',
-
+            VehicleLocalPosition,
+            '/fmu/out/vehicle_local_position',
             self.drone_position_callback,
-
-            10)
+            qos_profile_sensor_data)
 
         
 
@@ -114,15 +112,35 @@ class BarrelManager(Node):
 
         self.mission_complete_publisher = self.create_publisher(Bool, '/mission_complete', 10)
 
+        # 新增：下一个桶目标点发布器
+
+        self.next_bucket_point_pub = self.create_publisher(
+
+            Point,
+
+            '/next_bucket_point',
+
+            10
+
+        )
+
+        # 新增：订阅程序A的到位通知
+
+        self.reached_sub = self.create_subscription(
+
+            Bool, '/bucket_reached', self.on_reached, 10)
+
 
 
     def drone_position_callback(self, msg):
 
-        """更新无人机当前位置"""
+        """更新无人机当前位置 (直接从 VehicleLocalPosition 读取)"""
 
-        self.current_drone_position = (msg.pose.position.x, msg.pose.position.y, msg.pose.position.z)
+        self.current_drone_position = (msg.x, msg.y, msg.z)
 
-        self.get_logger().debug(f"无人机位置更新: ({self.current_drone_position[0]:.2f}, {self.current_drone_position[1]:.2f}, {self.current_drone_position[2]:.2f})")
+        self.get_logger().debug(
+
+            f"无人机位置更新: ({msg.x:.2f}, {msg.y:.2f}, {msg.z:.2f})")
 
 
 
@@ -170,11 +188,11 @@ class BarrelManager(Node):
 
             
 
-            # 发送投水任务指令给程序D
+            # 发布下一个桶的坐标给程序A，等待程序A到位后再发送投水指令
 
             if not self.mission_completed:
 
-                self.send_drop_mission_to_program_d(next_barrel_id)
+                self.send_next_bucket_coordinate(next_barrel_id)
 
 
 
@@ -246,6 +264,48 @@ class BarrelManager(Node):
 
 
 
+    def send_next_bucket_coordinate(self, barrel_id):
+
+        """发送下一个桶的坐标给程序A，但不立即发送投水指令"""
+
+        if barrel_id not in self.barrels:
+
+            self.get_logger().error(f"桶{barrel_id}不存在")
+
+            return False
+
+            
+
+        barrel_data = self.barrels[barrel_id]
+
+        barrel_position = barrel_data['position']
+
+        
+
+        # 发布桶的坐标给程序A
+
+        point = Point()
+
+        point.x = barrel_position[0]
+
+        point.y = barrel_position[1]
+
+        point.z = self.current_drone_position[2]  # 以当前无人机高度为目标高度
+
+        self.next_bucket_point_pub.publish(point)
+
+        self.get_logger().info(
+
+            f"发布下一个桶目标点到 /next_bucket_point："
+
+            f" x={point.x:.2f}, y={point.y:.2f}, z={point.z:.2f}"
+
+        )
+
+        self.get_logger().info(f"等待程序A到达桶{barrel_id}上方后再发送投水指令")
+
+        return True
+
     def send_drop_mission_to_program_d(self, barrel_id):
 
         """发送投水任务指令给程序D"""
@@ -316,6 +376,20 @@ class BarrelManager(Node):
 
         return True
 
+    def on_reached(self, msg):
+
+        """收到程序A的到位通知，发送投水指令"""
+
+        if not self.waiting_for_drop_success and not self.mission_completed:
+
+            # 这里用 current_target_index 发当前桶的投水指令
+
+            barrel_id = self.sorted_barrel_ids[self.current_target_index]
+
+            self.get_logger().info(f"收到程序A到位通知，开始发送投水指令给桶{barrel_id}")
+
+            self.send_drop_mission_to_program_d(barrel_id)
+
 
 
     def start_mission(self):
@@ -362,9 +436,9 @@ class BarrelManager(Node):
 
             
 
-            # 发送第一个投水任务给程序D
+            # 发送第一个桶的坐标给程序A，等待到位后再发送投水指令
 
-            self.send_drop_mission_to_program_d(nearest_barrel_id)
+            self.send_next_bucket_coordinate(nearest_barrel_id)
 
         else:
 
@@ -462,8 +536,7 @@ class BarrelManager(Node):
 
                 
 
-                # 开始执行投水任务
-
+                            # 开始执行投水任务（发送第一个桶的坐标给程序A）
                 self.start_mission()
 
             else:
