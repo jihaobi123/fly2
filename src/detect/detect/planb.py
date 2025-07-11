@@ -307,7 +307,7 @@ class BucketDetectorNode(Node):
         return String(data=report_json)
 
     def detect(self):
-        results = self.model(self.color_image, imgsz=640, verbose=False)
+        results = self.model(self.color_image, imgsz=640, verbose=False,iou=0.3,conf=0.25 )
         detections = []
         for r in results:
             for box in r.boxes.cpu().numpy():
